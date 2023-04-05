@@ -15,9 +15,16 @@
 }
 
 html {
-	font-size: px;
+	font-size: 16px;
 }
 
+body {
+	display: flex;
+	place-items: center;
+	min-width: 320px;
+	min-height: 100vh;
+	margin: 0;
+}
 a {
 	font-weight: 500;
 	color: #646cff;
@@ -27,15 +34,6 @@ a:hover {
 	color: #535bf2;
 }
 
-body {
-	position: relative;
-	display: flex;
-	place-items: center;
-	min-width: 320px;
-	min-height: 100vh;
-	margin: 0;
-	overflow: hidden;
-}
 
 h1 {
 	font-size: 2em;
@@ -58,15 +56,22 @@ button {
 	border-radius: 8px;
 	border: 1px solid transparent;
 	background-color: #E3E4D3;
-	transition: border-color 0.25s;
+	transition: transform 0.1s, box-shadow 0.25s, background-color 0.25s;
 	cursor: pointer;
 }
-button:hover {
-	border-color: #646cff;
+
+
+button:active {
+	transform: scale(0.95);
 }
-button:focus,
-button:focus-visible {
-	outline: 4px auto -webkit-focus-ring-color;
+
+
+button:focus {
+	box-shadow: 0 0 0 2px #F1F1EF, 0 0 0 4px #BBBD94;
+}
+
+input[type="radio"] {
+	display: none;
 }
 
 @media (prefers-color-scheme: light) {
@@ -80,5 +85,8 @@ button:focus-visible {
 	button {
 		color: white;
 		background-color: #21453C;
+	}
+	button:hover {
+		background-color: #1C3A32;
 	}
 }
