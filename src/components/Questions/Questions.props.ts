@@ -1,1 +1,1 @@
-export interface QuestionsProps {};
+export interface QuestionsProps { };
