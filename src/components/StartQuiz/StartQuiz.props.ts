@@ -1,1 +1,3 @@
-export interface StartQuizProps {};
+export interface StartQuizProps {
+	onClick: () => void
+};
