@@ -22,9 +22,10 @@ const styles = {
 }
 
 export const Questions: FC<QuestionsProps> = (props) => {
-	const [hasCheckedAnswers, sethasCheckedAnswers] = React.useState(false);
+	const [hasCheckedAnswers, setHasCheckedAnswers] = React.useState(false);
 	const [quizData, setQuizData] = React.useState<ForamtedQuestionType[]>([]);
-	const { data, loading, error } = useFetch<QuizType>('https://opentdb.com/api.php?amount=5&category=27&difficulty=easy&type=multiple');
+	const [correctAnswers, setCorrectAnswers] = React.useState(0);
+	const { data, loading, error, refetch } = useFetch<QuizType>('https://opentdb.com/api.php?amount=5&category=27&difficulty=easy&type=multiple');
 
 	React.useEffect(() => {
 		console.log("useEffect");
@@ -34,7 +35,7 @@ export const Questions: FC<QuestionsProps> = (props) => {
 			setQuizData(formatQestions(data.results));
 		}
 
-	}, [data]);
+	}, [loading]);
 
 	function formatQestions(questions: QuestionType[]) {
 		return questions.map((question) => {
@@ -57,9 +58,35 @@ export const Questions: FC<QuestionsProps> = (props) => {
 		setQuizData((prevQuestions) => prevQuestions.map((prevQuestion) => prevQuestion.question === question ? { ...prevQuestion, selected_answer: answer } : prevQuestion));
 	}
 
-	function hadleCheck() {
-		console.log("checkHandle");
+	function handleClickCheck() {
+		console.log("checkHandle stage 0");
 
+		if (quizData.some((item) => item.selected_answer === null)) return;
+
+		console.log("checkHandle stage 1");
+
+		setQuizData((prevQuestions) => prevQuestions.map((prevQuestion) => {
+			return {
+				...prevQuestion,
+				checked: true
+			}
+		}));
+
+		console.log("checkHandle stage 2");
+
+		quizData.forEach((question) => {
+			if (question.selected_answer === question.correct_answer) {
+				setCorrectAnswers(prevCount => prevCount + 1);
+			}
+		})
+
+		setHasCheckedAnswers(true);
+	}
+
+	function handleClickReplay() {
+		setHasCheckedAnswers(false);
+		setCorrectAnswers(0);
+		refetch();
 	}
 
 	if (loading) return <div>Loading...</div>;
@@ -67,12 +94,15 @@ export const Questions: FC<QuestionsProps> = (props) => {
 	if (!quizData.length) return <div>There is no data...</div>;
 
 	return <div {...props} className="container">
-		{quizData.map((questionlist, index) => (
-			<Question key={questionlist.question} onClick={handleClickAnswer} {...questionlist} />
-		))}
-		<footer style={styles.footer}>
-			<h5 style={styles.h5}>You scored 3/5 correct answers</h5>
-			<button onClick={hadleCheck} type='button' title="Questions" style={styles.button}>Check answers</button>
-		</footer>
+		<section>
+			<h2>Questions about — <span style={{ color: '#FF5200' }}>{data?.results[0].category}</span></h2>
+			{quizData.map((questionlist, index) => (
+				<Question key={questionlist.question} onClick={handleClickAnswer} {...questionlist} />
+			))}
+		</section>
+		<div style={styles.footer}>
+			{hasCheckedAnswers && <h5 style={styles.h5}>You scored {correctAnswers}/5 correct answers</h5>}
+			<button onClick={hasCheckedAnswers ? handleClickReplay : handleClickCheck} type='button' title={hasCheckedAnswers ? 'Play again' : 'Check answers'} style={styles.button}>{hasCheckedAnswers ? 'Play again' : 'Check answers'}</button>
+		</div>
 	</div>;
 };
