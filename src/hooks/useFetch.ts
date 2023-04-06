@@ -60,13 +60,13 @@ export function useFetch<T = unknown>(url?: string, options?: RequestInit): Stat
 			dispatch({ type: 'loading' });
 
 			// If data is already in the cache, return it
-			if (cache.current[url]) {
-				// Dispatch the fetched action to the reducer state and return the data from the cache
-				dispatch({ type: 'fetched', payload: cache.current[url] });
-				console.log("cache", cache);
+			// if (cache.current[url]) {
+			// 	// Dispatch the fetched action to the reducer state and return the data from the cache
+			// 	dispatch({ type: 'fetched', payload: cache.current[url] });
+			// 	console.log("cache", cache);
 
-				return;
-			}
+			// 	return;
+			// }
 
 			try {
 				// Fetch the data from the url
@@ -81,7 +81,7 @@ export function useFetch<T = unknown>(url?: string, options?: RequestInit): Stat
 				const data = await response.json();
 
 				// Add the data to the cache
-				cache.current[url] = data;
+				// cache.current[url] = data;
 
 				// Update state if the component is mounted
 				if (isMouned && !cancelRequest.current) {
