@@ -1,9 +1,10 @@
-import { useEffect, useReducer, useRef } from "react";
+import React from "react";
 
 interface State<T> {
 	data?: T;
 	error?: Error;
-	loading?: boolean;
+	loading: boolean;
+	refetch: () => void
 }
 
 type Cache<T> = { [url: string]: T };
@@ -14,13 +15,18 @@ type Action<T> =
 	| { type: 'error'; payload: Error };
 
 export function useFetch<T = unknown>(url?: string, options?: RequestInit): State<T> {
-	const cache = useRef<Cache<T>>({});
-	const cancelRequest = useRef<boolean>(false); // Used to prevent state update if the component unmounted
+	const [refetchIndex, setRefetchIndex] = React.useState(0)
+	const cache = React.useRef<Cache<T>>({});
+	const cancelRequest = React.useRef<boolean>(false); // Used to prevent state update if the component unmounted
+
+	// Create a function to handle the fetch request
+	const refetch = () => setRefetchIndex((prevRefetchIndex) => prevRefetchIndex + 1)
 
 	const initialState: State<T> = {
 		error: undefined,
 		data: undefined,
 		loading: true,
+		refetch: refetch
 	}
 
 	const fetchReducer = (state: State<T>, action: Action<T>): State<T> => {
@@ -36,9 +42,9 @@ export function useFetch<T = unknown>(url?: string, options?: RequestInit): Stat
 		}
 	}
 
-	const [state, dispatch] = useReducer(fetchReducer, initialState);
+	const [state, dispatch] = React.useReducer(fetchReducer, initialState);
 
-	useEffect(() => {
+	React.useEffect(() => {
 		// if url is not defined return nothing
 		if (!url) return;
 
@@ -100,7 +106,7 @@ export function useFetch<T = unknown>(url?: string, options?: RequestInit): Stat
 			cancelRequest.current = true;
 			isMouned = false;
 		}
-	}, [url, options]);
+	}, [url, options, refetchIndex]);
 
 	return state;
 
