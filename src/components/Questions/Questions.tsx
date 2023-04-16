@@ -9,7 +9,7 @@ export const Questions: FC<QuestionsProps> = (props) => {
 	const [hasCheckedAnswers, setHasCheckedAnswers] = React.useState(false);
 	const [quizData, setQuizData] = React.useState<ForamtedQuestionType[]>([]);
 	const [correctAnswers, setCorrectAnswers] = React.useState(0);
-	const { data, loading, error, refetch } = useFetch<QuizType>('https://opentdb.com/api.php?amount=5&category=27&difficulty=easy&type=multiple');
+	const { data, loading, error, refetch } = useFetch<QuizType>('https://opentdb.com/api.php?amount=5&type=multiple');
 
 	React.useEffect(() => {
 		console.log("useEffect");
