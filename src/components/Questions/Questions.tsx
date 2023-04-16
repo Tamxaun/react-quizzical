@@ -17,6 +17,7 @@ export const Questions: FC<QuestionsProps> = (props) => {
 
 		if (!loading && data) {
 			setHasRunChecked(false);
+			setHasCheckedAnswers(false);
 
 			console.log("useEffect with data");
 			setQuizData(formatQestions(data.results));
