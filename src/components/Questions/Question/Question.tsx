@@ -30,7 +30,7 @@ export const Question: FC<QuestionProps> = (props) => {
 	})
 
 	return (
-		<article className={`${styles.question} ${props.selected_answer && styles.isSelected} ${props.runChecked && !props.selected_answer ? ` ${styles.hasChecked}` : null}`}>
+		<article className={`${styles.question} ${props.selected_answer && styles.isSelected} ${props.hasRunChecked && !props.selected_answer ? ` ${styles.hasChecked}` : null}`}>
 			<section>
 				<h3 className={styles.questionTitle}>{props.question}</h3>
 				<ul className={styles.answers}>{answersElement}</ul>
