@@ -9,10 +9,16 @@
 	padding: 0.75em;
 	border-radius: 0.5em;
 	border: 1px solid #E3E4D3;
+	background-color: #e3e4d32c;
+
 }
 
 .question.isSelected section {
-	background-color: #E3E4D3;
+	background-color: #e3e4d3b7;
+}
+
+.question.hasChecked section{
+	background-color: #f5a3b344;
 }
 
 .questionTitle {
@@ -43,6 +49,7 @@
 	animation: transform 0.1s;
 	cursor: pointer;
 }
+
 input[type="radio"]:not(:disabled) .answer:hover {
 	background-color: #BBBD94;
 }
