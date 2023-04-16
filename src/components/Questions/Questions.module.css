@@ -1,0 +1,34 @@
+h3 {
+	font-size: 0.875em;
+	line-height: 1em;
+	font-weight: 500;
+}
+
+h5 {
+	width: 100%;
+	font-size: 0.875em;
+	line-height: 1em;
+	font-weight: 500;
+};
+
+.easy {
+	color: #CBD260;
+}
+
+.medium {
+	color: #DABC44;
+}
+
+.hard {
+	color: #EE2F53;
+}
+
+.action {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.btn {
+	max-width: 192px;
+}
