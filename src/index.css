@@ -47,6 +47,7 @@ p {
 }
 
 button {
+	width: 100%;
 	margin: 2em 0;
 	padding: 1em 1.25em;
 	font-size: 1em;
@@ -59,7 +60,6 @@ button {
 	transition: transform 0.1s, box-shadow 0.25s, background-color 0.25s;
 	cursor: pointer;
 }
-
 
 button:active {
 	transform: scale(0.95);
