@@ -9,11 +9,10 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	max-width: 1280px;
+	max-width: 800px;
 	min-height: 100vh;
 	margin: auto;
 }
-
 
 .container {
 	padding: 0 20px;
