@@ -3,23 +3,7 @@ import { QuestionsProps } from '.';
 import { Question } from './Question';
 import { useFetch } from '../../hooks';
 import type { ForamtedQuestionType, QuestionType, QuizType } from '../../types';
-
-const styles = {
-	button: {
-		minWidth: '192px'
-	},
-	footer: {
-		display: 'flex',
-		justifyContent: 'space-around',
-		alignItems: 'center',
-	},
-	h5: {
-		width: '100%',
-		fontSize: '0.875em',
-		lineHeight: '1em',
-		fontWeight: '500',
-	}
-}
+import styles from './Questions.module.css';
 
 export const Questions: FC<QuestionsProps> = (props) => {
 	const [hasCheckedAnswers, setHasCheckedAnswers] = React.useState(false);
@@ -96,13 +80,14 @@ export const Questions: FC<QuestionsProps> = (props) => {
 	return <div {...props} className="container">
 		<section>
 			<h2>Questions about — <span style={{ color: '#FF5200' }}>{data?.results[0].category}</span></h2>
-			{quizData.map((questionlist, index) => (
+			<h3 className={styles.h3}>Difficulty: <span className={styles[data?.results[0]?.difficulty || 'easy']}>{data?.results[0].difficulty}</span></h3>
+			{quizData.map((questionlist) => (
 				<Question key={questionlist.question} onClick={handleClickAnswer} {...questionlist} />
 			))}
 		</section>
-		<div style={styles.footer}>
-			{hasCheckedAnswers && <h5 style={styles.h5}>You scored {correctAnswers}/5 correct answers</h5>}
-			<button onClick={hasCheckedAnswers ? handleClickReplay : handleClickCheck} type='button' title={hasCheckedAnswers ? 'Play again' : 'Check answers'} style={styles.button}>{hasCheckedAnswers ? 'Play again' : 'Check answers'}</button>
+		<div className={styles.action}>
+			{hasCheckedAnswers && <h5 className={styles.h5}>You scored {correctAnswers}/5 correct answers</h5>}
+			<button className={styles.btn} onClick={hasCheckedAnswers ? handleClickReplay : handleClickCheck} type='button' title={hasCheckedAnswers ? 'Play again' : 'Check answers'} >{hasCheckedAnswers ? 'Play again' : 'Check answers'}</button>
 		</div>
 	</div>;
 };
