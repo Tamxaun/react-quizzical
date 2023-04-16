@@ -6,6 +6,7 @@ import type { ForamtedQuestionType, QuestionType, QuizType } from '../../types';
 import styles from './Questions.module.css';
 
 export const Questions: FC<QuestionsProps> = (props) => {
+	const [hasRunChecked, setHasRunChecked] = React.useState(false);
 	const [hasCheckedAnswers, setHasCheckedAnswers] = React.useState(false);
 	const [quizData, setQuizData] = React.useState<ForamtedQuestionType[]>([]);
 	const [correctAnswers, setCorrectAnswers] = React.useState(0);
@@ -15,6 +16,8 @@ export const Questions: FC<QuestionsProps> = (props) => {
 		console.log("useEffect");
 
 		if (!loading && data) {
+			setHasRunChecked(false);
+
 			console.log("useEffect with data");
 			setQuizData(formatQestions(data.results));
 		}
@@ -44,6 +47,8 @@ export const Questions: FC<QuestionsProps> = (props) => {
 
 	function handleClickCheck() {
 		console.log("checkHandle stage 0");
+
+		setHasRunChecked(true);
 
 		if (quizData.some((item) => item.selected_answer === null)) return;
 
@@ -82,7 +87,7 @@ export const Questions: FC<QuestionsProps> = (props) => {
 			<h2>Questions about — <span style={{ color: '#FF5200' }}>{data?.results[0].category}</span></h2>
 			<h3 className={styles.h3}>Difficulty: <span className={styles[data?.results[0]?.difficulty || 'easy']}>{data?.results[0].difficulty}</span></h3>
 			{quizData.map((questionlist) => (
-				<Question key={questionlist.question} onClick={handleClickAnswer} {...questionlist} />
+				<Question key={questionlist.question} onClick={handleClickAnswer} {...questionlist} hasRunChecked={hasRunChecked} />
 			))}
 		</section>
 		<div className={styles.action}>
