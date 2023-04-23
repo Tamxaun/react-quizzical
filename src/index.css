@@ -65,7 +65,6 @@ button:active {
 	transform: scale(0.95);
 }
 
-
 button:focus {
 	box-shadow: 0 0 0 2px #F1F1EF, 0 0 0 4px #BBBD94;
 }

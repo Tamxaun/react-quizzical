@@ -18,7 +18,7 @@
 	padding: 0 20px;
 }
 
-.startQuiz{
+.startQuiz {
 	text-align: center;
 }
 
@@ -37,7 +37,6 @@
 	border-bottom-right-radius: 310px 190px;
 	border-bottom-left-radius: 200px 130px;
 	transform: rotate(50deg);
-
 }
 .blob.green {
 	bottom: -10%;
@@ -49,7 +48,3 @@
 	border-bottom-left-radius: 380px 390px;
 	transform: rotate(20deg);
 }
-
-
-
-
