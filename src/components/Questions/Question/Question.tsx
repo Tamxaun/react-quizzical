@@ -32,7 +32,8 @@ export const Question: FC<QuestionProps> = (props) => {
 	return (
 		<article className={`${styles.question} ${props.selected_answer && styles.isSelected} ${props.hasRunChecked && !props.selected_answer ? ` ${styles.hasChecked}` : null}`}>
 			<section>
-				<h3 className={styles.questionTitle}>{props.question}</h3>
+				{/* <h3 className={styles.questionTitle}>{props.question}</h3> */}
+				<h3 className={styles.questionTitle} dangerouslySetInnerHTML={{ __html: props.question }} />
 				<ul className={styles.answers}>{answersElement}</ul>
 			</section>
 		</article>
