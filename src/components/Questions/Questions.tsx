@@ -13,13 +13,11 @@ export const Questions: FC<QuestionsProps> = (props) => {
 	const { data, loading, error, refetch } = useFetch<QuizType>('https://opentdb.com/api.php?amount=5&type=multiple');
 
 	React.useEffect(() => {
-		console.log("useEffect");
 
 		if (!loading && data) {
 			setHasRunChecked(false);
 			setHasCheckedAnswers(false);
 
-			console.log("useEffect with data");
 			setQuizData(formatQestions(data.results));
 		}
 
@@ -47,13 +45,10 @@ export const Questions: FC<QuestionsProps> = (props) => {
 	}
 
 	function handleClickCheck() {
-		console.log("checkHandle stage 0");
 
 		setHasRunChecked(true);
 
 		if (quizData.some((item) => item.selected_answer === null)) return;
-
-		console.log("checkHandle stage 1");
 
 		setQuizData((prevQuestions) => prevQuestions.map((prevQuestion) => {
 			return {
@@ -61,8 +56,6 @@ export const Questions: FC<QuestionsProps> = (props) => {
 				checked: true
 			}
 		}));
-
-		console.log("checkHandle stage 2");
 
 		quizData.forEach((question) => {
 			if (question.selected_answer === question.correct_answer) {
@@ -86,7 +79,7 @@ export const Questions: FC<QuestionsProps> = (props) => {
 	return <div {...props} className="container">
 		<section>
 			<h2>Questions about — <span style={{ color: '#FF5200' }}>{data?.results[0].category}</span></h2>
-			<h3 className={styles.h3}>Difficulty: <span className={styles[data?.results[0]?.difficulty || 'easy']}>{data?.results[0].difficulty}</span></h3>
+			<h3 className={styles.h3}>Difficulty: <span className={styles[data?.results[0]?.difficulty || '']}>{data?.results[0].difficulty}</span></h3>
 			{quizData.map((questionlist) => (
 				<Question key={questionlist.question} onClick={handleClickAnswer} {...questionlist} hasRunChecked={hasRunChecked} />
 			))}
